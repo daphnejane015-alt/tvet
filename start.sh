@@ -14,11 +14,26 @@ sed -i "s/DB_CONNECTION=.*/DB_CONNECTION=pgsql/" /var/www/html/.env
 echo "Database connection set to PostgreSQL"
 
 # Set database credentials from environment variables
-sed -i "s/DB_HOST=.*/DB_HOST=${DB_HOST}/" /var/www/html/.env
-sed -i "s/DB_PORT=.*/DB_PORT=${DB_PORT}/" /var/www/html/.env
-sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" /var/www/html/.env
-sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" /var/www/html/.env
-sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" /var/www/html/.env
+if [ -n "$DB_HOST" ]; then
+    sed -i "s/DB_HOST=.*/DB_HOST=${DB_HOST}/" /var/www/html/.env
+fi
+if [ -n "$DB_PORT" ]; then
+    sed -i "s/DB_PORT=.*/DB_PORT=${DB_PORT}/" /var/www/html/.env
+fi
+if [ -n "$DB_DATABASE" ]; then
+    sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" /var/www/html/.env
+fi
+if [ -n "$DB_USERNAME" ]; then
+    sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" /var/www/html/.env
+fi
+if [ -n "$DB_PASSWORD" ]; then
+    sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" /var/www/html/.env
+fi
+
+# Verify database configuration
+if [ -z "$DB_HOST" ] || [ -z "$DB_DATABASE" ]; then
+    echo "WARNING: Database credentials not fully set. Migrations may fail."
+fi
 
 echo "Database configuration:"
 echo "  DB_CONNECTION=${DB_CONNECTION}"
