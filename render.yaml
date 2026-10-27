@@ -7,6 +7,8 @@ services:
     envVars:
       - key: APP_ENV
         value: production
+      - key: APP_NAME
+        value: AceTVET
       - key: APP_DEBUG
         value: true
       - key: APP_KEY
