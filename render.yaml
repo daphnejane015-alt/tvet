@@ -8,7 +8,9 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: true
+      - key: APP_KEY
+        generateValue: true
       - key: APP_URL
         value: https://tvetsystem.onrender.com
       - key: DB_CONNECTION
