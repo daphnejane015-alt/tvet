@@ -14,7 +14,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd && \
+    docker-php-ext-enable pdo_pgsql && \
+    docker-php-ext-enable pdo_pgsql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -43,25 +45,7 @@ RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 # Expose port
 EXPOSE 8080
 
-# Create startup script
-RUN echo '#!/bin/sh' > /start.sh && \
-    echo 'set -e' >> /start.sh && \
-    echo 'echo "Starting Laravel application..."' >> /start.sh && \
-    echo 'if [ ! -f /var/www/html/.env ]; then cp /var/www/html/.env.example /var/www/html/.env; fi' >> /start.sh && \
-    echo 'echo "Environment file setup complete"' >> /start.sh && \
-    echo 'php artisan key:generate --ansi || true' >> /start.sh && \
-    echo 'echo "Application key generated"' >> /start.sh && \
-    echo 'php artisan package:discover --ansi' >> /start.sh && \
-    echo 'echo "Packages discovered"' >> /start.sh && \
-    echo 'php artisan storage:link' >> /start.sh && \
-    echo 'echo "Storage linked"' >> /start.sh && \
-    echo 'php artisan migrate --force' >> /start.sh && \
-    echo 'echo "Migrations completed"' >> /start.sh && \
-    echo 'php artisan config:cache' >> /start.sh && \
-    echo 'php artisan route:cache' >> /start.sh && \
-    echo 'echo "Caching completed"' >> /start.sh && \
-    echo 'echo "Starting server on port 8080..."' >> /start.sh && \
-    echo 'php artisan serve --host=0.0.0.0 --port=8080' >> /start.sh && \
-    chmod +x /start.sh
+# Make start script executable
+RUN chmod +x /var/www/html/start.sh
 
-CMD ["/start.sh"]
+CMD ["/var/www/html/start.sh"]

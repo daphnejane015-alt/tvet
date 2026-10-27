@@ -43,6 +43,8 @@ services:
         value: sync
       - key: LOG_CHANNEL
         value: stderr
+      - key: LOG_LEVEL
+        value: debug
 
 databases:
   # PostgreSQL Database
