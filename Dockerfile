@@ -32,7 +32,7 @@ COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --no-audit --no-fund
 RUN npm run build
 
 # Copy rest of application
