@@ -1,0 +1,1 @@
+<img src="{{ asset('images/logo-acetvet-new.png') }}?v={{ file_exists(public_path('images/logo-acetvet-new.png')) ? filemtime(public_path('images/logo-acetvet-new.png')) : time() }}" {{ $attributes }} alt="AceTVET Logo">
