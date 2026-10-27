@@ -31,7 +31,7 @@ COPY composer.json composer.lock ./
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN npm install
 RUN npm run build
 
@@ -51,6 +51,7 @@ EXPOSE 8080
 RUN echo '#!/bin/sh' > /start.sh && \
     echo 'if [ ! -f /var/www/html/.env ]; then cp /var/www/html/.env.example /var/www/html/.env; fi' >> /start.sh && \
     echo 'php artisan key:generate --ansi' >> /start.sh && \
+    echo 'php artisan package:discover --ansi' >> /start.sh && \
     echo 'php artisan storage:link' >> /start.sh && \
     echo 'php artisan migrate --force' >> /start.sh && \
     echo 'php artisan config:cache' >> /start.sh && \
