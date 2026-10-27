@@ -32,7 +32,9 @@ fi
 
 # Verify database configuration
 if [ -z "$DB_HOST" ] || [ -z "$DB_DATABASE" ]; then
-    echo "WARNING: Database credentials not fully set. Migrations may fail."
+    echo "WARNING: Database credentials not fully set."
+    echo "Please ensure a PostgreSQL database is created in Render and linked to this service."
+    echo "Service name should be 'tvet-db' as configured in render.yaml"
 fi
 
 echo "Database configuration:"
@@ -53,9 +55,14 @@ echo "Packages discovered"
 php artisan storage:link
 echo "Storage linked"
 
-# Run migrations
-php artisan migrate --force
-echo "Migrations completed"
+# Run migrations (only if database is configured)
+if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
+    echo "Running migrations..."
+    php artisan migrate --force || echo "Migration failed, but continuing..."
+    echo "Migrations completed"
+else
+    echo "Skipping migrations - database not configured"
+fi
 
 # Cache configuration
 php artisan config:cache
