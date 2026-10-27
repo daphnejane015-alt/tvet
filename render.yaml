@@ -8,7 +8,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: true
+        value: false
       - key: APP_KEY
         generateValue: true
       - key: APP_URL
@@ -16,25 +16,15 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        fromDatabase:
-          name: tvet-db
-          property: host
+        value: dpg-dbg09ol9el5s73bget5g-a
       - key: DB_PORT
-        fromDatabase:
-          name: tvet-db
-          property: port
+        value: 5432
       - key: DB_DATABASE
-        fromDatabase:
-          name: tvet-db
-          property: database
+        value: tvet_db_ql71
       - key: DB_USERNAME
-        fromDatabase:
-          name: tvet-db
-          property: user
+        value: tvet_user
       - key: DB_PASSWORD
-        fromDatabase:
-          name: tvet-db
-          property: password
+        sync: false
       - key: CACHE_DRIVER
         value: file
       - key: SESSION_DRIVER
@@ -44,11 +34,4 @@ services:
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL
-        value: debug
-
-databases:
-  # PostgreSQL Database
-  - name: tvet-db
-    databaseName: tvet_db
-    user: tvet_user
-    plan: free
+        value: error

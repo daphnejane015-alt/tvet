@@ -15,13 +15,22 @@ The application requires a PostgreSQL database to function properly. Follow thes
    - **Plan**: Free
 4. Click "Create Database"
 
-### 2. Link Database to Web Service
+### 2. Configure Database Environment Variables
+
+Since automatic database linking may not work properly, configure the environment variables manually:
 
 1. Go to your `tvetSystem` web service in Render
 2. Click "Settings" → "Environment"
-3. Look for the database environment variables (DB_HOST, DB_PORT, etc.)
-4. If they're not present, click "Add Environment Variable" and add them manually
-5. Get the values from your PostgreSQL database's "Connect" tab
+3. Add the following environment variables:
+
+   - **DB_CONNECTION**: `pgsql`
+   - **DB_HOST**: `dpg-dbg09ol9el5s73bget5g-a` (from your connection string)
+   - **DB_PORT**: `5432`
+   - **DB_DATABASE**: `tvet_db_ql71` (from your connection string)
+   - **DB_USERNAME**: `tvet_user`
+   - **DB_PASSWORD**: `wKvx736mFmNEhIIGkSl1osyPj8GkQMpX` (from your connection string)
+
+4. Click "Save Changes"
 
 ### 3. Redeploy
 
