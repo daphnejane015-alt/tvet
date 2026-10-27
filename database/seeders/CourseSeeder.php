@@ -123,17 +123,21 @@ class CourseSeeder extends Seeder
                 continue; // skip kalau kategori tak wujud
             }
 
-            Course::create([
-                'category_id' => $category->id,
-                'name' => $course['name'],
-                'slug' => Str::slug($course['name']) . '-' . uniqid(),
-                'description' => $course['description'],
-                'career_prospects' => $course['career_prospects'],
-                'min_salary' => $course['min_salary'],
-                'max_salary' => $course['max_salary'],
-                'duration' => $course['duration'],
-                'image' => null,
-            ]);
+            Course::firstOrCreate(
+                [
+                    'name' => $course['name'],
+                    'category_id' => $category->id,
+                ],
+                [
+                    'slug' => Str::slug($course['name']),
+                    'description' => $course['description'],
+                    'career_prospects' => $course['career_prospects'],
+                    'min_salary' => $course['min_salary'],
+                    'max_salary' => $course['max_salary'],
+                    'duration' => $course['duration'],
+                    'image' => null,
+                ]
+            );
         }
     }
 }

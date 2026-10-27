@@ -61,6 +61,7 @@ if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     php artisan migrate --force || echo "Migration failed, but continuing..."
     echo "Migrations completed"
 
+    # Run seeders - they now use firstOrCreate to prevent duplicates
     echo "Running database seeders..."
     php artisan db:seed --force || echo "Seeding failed, but continuing..."
     echo "Database seeding completed"
