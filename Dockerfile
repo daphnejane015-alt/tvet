@@ -26,17 +26,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application files first (to cache dependencies)
-COPY composer.json composer.lock ./
-COPY package.json package-lock.json ./
+# Copy application files
+COPY . /var/www/html/
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 RUN npm install --legacy-peer-deps --no-audit --no-fund
 RUN npm run build
-
-# Copy rest of application
-COPY . /var/www/html/
 
 # Create storage directories
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public bootstrap/cache
