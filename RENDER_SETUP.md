@@ -32,6 +32,8 @@ Since automatic database linking may not work properly, configure the environmen
 
 4. Click "Save Changes"
 
+**Important**: The DB_PASSWORD must be set manually in the Render dashboard. It is not included in render.yaml for security reasons.
+
 ### 3. Redeploy
 
 After creating and linking the database:

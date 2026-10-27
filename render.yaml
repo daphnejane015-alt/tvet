@@ -23,8 +23,6 @@ services:
         value: tvet_db_ql71
       - key: DB_USERNAME
         value: tvet_user
-      - key: DB_PASSWORD
-        sync: false
       - key: CACHE_DRIVER
         value: file
       - key: SESSION_DRIVER
