@@ -60,6 +60,10 @@ if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     echo "Running migrations..."
     php artisan migrate --force || echo "Migration failed, but continuing..."
     echo "Migrations completed"
+
+    echo "Running database seeders..."
+    php artisan db:seed --force || echo "Seeding failed, but continuing..."
+    echo "Database seeding completed"
 else
     echo "Skipping migrations - database not configured"
 fi
