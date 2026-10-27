@@ -36,11 +36,14 @@ RUN npm run build
 # Generate application key
 RUN php artisan key:generate
 
+# Create storage directories
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public
+
 # Set permissions
-RUN chmod -R 755 /var/www/html/storage
+RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expose port
 EXPOSE 8080
 
-# Start Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# Run migrations and start Laravel
+CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080"

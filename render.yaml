@@ -2,8 +2,8 @@ services:
   # Web Service
   - type: web
     name: tvet-system
-    env: docker
     plan: free
+    env: docker
     envVars:
       - key: APP_ENV
         value: production
