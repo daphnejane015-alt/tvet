@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd && \
-    docker-php-ext-enable pdo_pgsql && \
     docker-php-ext-enable pdo_pgsql
 
 # Install Composer
