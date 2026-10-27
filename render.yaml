@@ -10,7 +10,7 @@ services:
       - key: APP_NAME
         value: AceTVET
       - key: APP_DEBUG
-        value: true
+        value: false
       - key: APP_KEY
         generateValue: true
       - key: APP_URL
@@ -36,4 +36,4 @@ services:
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL
-        value: debug
+        value: error
