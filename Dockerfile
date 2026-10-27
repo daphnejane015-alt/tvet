@@ -25,19 +25,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application files
-COPY . /var/www/html/
+# Copy application files first (to cache dependencies)
+COPY composer.json composer.lock ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN npm install
 RUN npm run build
 
-# Generate application key
-RUN php artisan key:generate
+# Copy rest of application
+COPY . /var/www/html/
 
 # Create storage directories
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public bootstrap/cache
 
 # Set permissions
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
@@ -45,5 +46,15 @@ RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 # Expose port
 EXPOSE 8080
 
-# Run migrations and start Laravel
-CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080"
+# Create startup script
+RUN echo '#!/bin/sh' > /start.sh && \
+    echo 'if [ ! -f /var/www/html/.env ]; then cp /var/www/html/.env.example /var/www/html/.env; fi' >> /start.sh && \
+    echo 'php artisan key:generate --ansi' >> /start.sh && \
+    echo 'php artisan storage:link' >> /start.sh && \
+    echo 'php artisan migrate --force' >> /start.sh && \
+    echo 'php artisan config:cache' >> /start.sh && \
+    echo 'php artisan route:cache' >> /start.sh && \
+    echo 'php artisan serve --host=0.0.0.0 --port=8080' >> /start.sh && \
+    chmod +x /start.sh
+
+CMD ["/start.sh"]
