@@ -39,12 +39,13 @@ Route::middleware(['guest', 'prevent.caching'])->group(function () {
 });
 
 Route::middleware(['auth', 'prevent.caching'])->group(function () {
-    Route::get('verify-email', EmailVerificationPromptController::class)
-                ->name('verification.notice');
+    // Email verification routes disabled for Render free tier (SMTP blocked)
+    // Route::get('verify-email', EmailVerificationPromptController::class)
+    //             ->name('verification.notice');
 
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
+    // Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    //             ->middleware('throttle:6,1')
+    //             ->name('verification.send');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
                 ->name('password.confirm');
@@ -57,7 +58,7 @@ Route::middleware(['auth', 'prevent.caching'])->group(function () {
                 ->name('logout');
 });
 
-// Verification route - outside auth middleware, protected by hash verification in controller
-Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-            ->middleware(['throttle:6,1', 'prevent.caching'])
-            ->name('verification.verify');
+// Verification route disabled for Render free tier (SMTP blocked)
+// Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
+//             ->middleware(['throttle:6,1', 'prevent.caching'])
+//             ->name('verification.verify');

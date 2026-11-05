@@ -41,15 +41,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'student',
+            'email_verified_at' => now(), // Auto-verify email for Render free tier
         ]);
 
         event(new Registered($user));
 
-        // Send email verification notification
-        $user->sendEmailVerificationNotification();
-
         // Redirect to login with message
         return redirect()->route('login')
-            ->with('status', 'Pendaftaran berjaya! Sila semak emel anda untuk pautan pengesahan.');
+            ->with('status', 'Pendaftaran berjaya! Sila log masuk dengan akaun anda.');
     }
 }
