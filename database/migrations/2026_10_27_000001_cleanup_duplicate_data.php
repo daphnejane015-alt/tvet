@@ -37,13 +37,13 @@ return new class extends Migration
         ');
 
         // Clean up duplicate admin users (keep the first occurrence based on email) - PostgreSQL syntax
-        DB::statement('
+        DB::statement("
             DELETE FROM users u1
             USING users u2
             WHERE u1.id > u2.id
             AND u1.email = u2.email
-            AND u1.role = "admin"
-        ');
+            AND u1.role = 'admin'
+        ");
     }
 
     /**
