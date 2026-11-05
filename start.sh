@@ -55,6 +55,14 @@ echo "Packages discovered"
 php artisan storage:link
 echo "Storage linked"
 
+# Verify storage link exists
+if [ -L /var/www/html/public/storage ]; then
+    echo "Storage symlink verified"
+else
+    echo "WARNING: Storage symlink not created correctly"
+    ls -la /var/www/html/public/ | grep storage
+fi
+
 # Run migrations (only if database is configured)
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     echo "Running migrations..."

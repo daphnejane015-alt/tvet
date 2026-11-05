@@ -970,7 +970,7 @@
         <script>
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js?version=acetvet-v9')
+                    navigator.serviceWorker.register('/sw.js?version=acetvet-v10')
                         .then(function(registration) {
                             console.log('Service Worker registered with scope:', registration.scope);
                             // Do NOT force update - let it load naturally
