@@ -42,6 +42,19 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
 
+    // Never intercept POST, PUT, DELETE, PATCH requests - always fetch from network
+    if (event.request.method !== 'GET') {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
+    // Never intercept authentication-related routes
+    const authRoutes = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-email', '/logout'];
+    if (authRoutes.some(route => url.pathname.startsWith(route))) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     // Check if this is a static asset we want to cache
     const isStaticAsset = STATIC_ASSETS.some(asset => url.pathname === asset);
     const isImageRequest = url.pathname.match(/\.(png|jpg|jpeg|gif|webp|svg|ico)$/i);

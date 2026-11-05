@@ -220,10 +220,10 @@
                     navigator.serviceWorker.register('/sw.js?version=acetvet-v9')
                         .then(function(registration) {
                             console.log('Service Worker registered with scope:', registration.scope);
-                            // Force update service worker
-                            registration.update();
+                            // Do NOT force update - let it load naturally
                         }, function(err) {
                             console.log('Service Worker registration failed:', err);
+                            // Continue without service worker if it fails
                         });
                 });
             }
