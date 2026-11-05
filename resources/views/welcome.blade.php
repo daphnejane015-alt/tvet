@@ -413,7 +413,7 @@
                                         <div class="flex-shrink-0">
                                             <div class="relative overflow-hidden bg-theme-dark h-40 sm:h-56">
                                                 @if($item->image)
-                                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
+                                                    <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100">
                                                 @else
                                                     <div class="w-full h-full bg-gradient-to-br from-theme-blue to-theme-purple flex items-center justify-center">
                                                         <span class="text-4xl">📰</span>

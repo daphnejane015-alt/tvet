@@ -155,7 +155,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                     @foreach ($courses as $course)
                         @php
-                            $imageUrl = $course->image ? asset('storage/' . $course->image) : asset('images/logo-acetvet-new.png');
+                            $imageUrl = $course->image ? asset($course->image) : asset('images/logo-acetvet-new.png');
                             $hasCustomImage = (bool) $course->image;
                             $salaryText = ($course->min_salary || $course->max_salary) 
                                 ? 'RM ' . number_format($course->min_salary, 0) . ' - ' . number_format($course->max_salary, 0) . ' / bln' 

@@ -30,7 +30,7 @@
 
                 <div class="relative h-56 sm:h-72 md:h-96 w-full bg-slate-900 overflow-hidden">
                     @if ($course->image)
-                        <img src="{{ asset('storage/' . $course->image) }}" class="w-full h-full object-cover brightness-95" alt="{{ $course->name }}">
+                        <img src="{{ asset($course->image) }}" class="w-full h-full object-cover brightness-95" alt="{{ $course->name }}">
                     @else
                         <div class="w-full h-full bg-gradient-to-br from-theme-blue via-indigo-600 to-theme-dark flex flex-col items-center justify-center text-white">
                             <span class="text-4xl sm:text-5xl mb-2">⚙️</span>

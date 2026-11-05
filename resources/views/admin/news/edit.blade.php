@@ -69,7 +69,7 @@
                         <div class="mb-6">
                             <label class="block text-sm font-bold text-gray-700 mb-2">Gambar Semasa</label>
                             <div class="flex items-center gap-4">
-                                <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="w-32 h-24 object-cover rounded-lg border border-gray-200">
+                                <img src="{{ asset($news->image) }}" alt="{{ $news->title }}" class="w-32 h-24 object-cover rounded-lg border border-gray-200">
                                 <span class="text-xs text-gray-500">Gambar ini akan digantikan jika muat naik gambar baharu.</span>
                             </div>
                         </div>

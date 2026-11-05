@@ -80,7 +80,7 @@
                         <label class="block text-sm font-extrabold text-theme-blue mb-2">Gambar Semasa</label>
                         @if ($course->image)
                             <div class="relative inline-block mt-2 mb-4">
-                                <img src="{{ asset('storage/' . $course->image) }}" class="w-40 h-28 object-cover rounded-xl shadow-md border-2 border-slate-200">
+                                <img src="{{ asset($course->image) }}" class="w-40 h-28 object-cover rounded-xl shadow-md border-2 border-slate-200">
                                 <div class="absolute -bottom-2 -right-2 bg-theme-blue text-white text-xs px-2 py-1 rounded-lg font-bold">
                                     Semasa
                                 </div>
