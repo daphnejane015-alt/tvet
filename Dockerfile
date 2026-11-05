@@ -44,7 +44,9 @@ RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 # Expose port
 EXPOSE 8080
 
-# Make start script executable
+# Make start scripts executable
 RUN chmod +x /var/www/html/start.sh
+RUN chmod +x /var/www/html/start-fly.sh
 
-CMD ["/var/www/html/start.sh"]
+# For Fly.io, use command instead of CMD to override health check
+CMD ["/var/www/html/start-fly.sh"]

@@ -4,8 +4,9 @@
 .env.backup
 .phpunit.result.cache
 node_modules
-storage/framework/cache
-storage/framework/sessions
-storage/framework/views
-storage/logs
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
 vendor
+fly.toml
