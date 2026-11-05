@@ -48,7 +48,7 @@ services:
       - key: MAIL_USERNAME
         value: daphnejane015@gmail.com
       - key: MAIL_PASSWORD
-        value: megd urwk pyim jyck
+        value: megdurwkpyimjyck
       - key: MAIL_ENCRYPTION
         value: tls
       - key: MAIL_FROM_ADDRESS
