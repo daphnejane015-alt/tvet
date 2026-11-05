@@ -36,7 +36,7 @@ RUN npm install --legacy-peer-deps --no-audit --no-fund
 RUN npm run build
 
 # Create storage directories
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public bootstrap/cache
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/app/public/news storage/app/public/courses bootstrap/cache
 
 # Set permissions
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache

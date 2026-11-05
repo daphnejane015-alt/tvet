@@ -8,5 +8,6 @@ storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
 storage/logs/*
+storage/app/public/uploads/*
 vendor
 fly.toml

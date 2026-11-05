@@ -55,9 +55,15 @@ echo "Packages discovered"
 php artisan storage:link
 echo "Storage linked"
 
+# Force recreate storage link if it's broken
+rm -f /var/www/html/public/storage
+php artisan storage:link
+echo "Storage link recreated"
+
 # Verify storage link exists
 if [ -L /var/www/html/public/storage ]; then
     echo "Storage symlink verified"
+    ls -la /var/www/html/public/storage
 else
     echo "WARNING: Storage symlink not created correctly"
     ls -la /var/www/html/public/ | grep storage
