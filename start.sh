@@ -63,7 +63,7 @@ if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
 
     # Run seeders - they now use firstOrCreate to prevent duplicates
     echo "Running database seeders..."
-    php artisan db:seed --force || echo "Seeding failed, but continuing..."
+    php artisan db:seed --force || echo "Seeding failed or skipped (data may already exist)"
     echo "Database seeding completed"
 else
     echo "Skipping migrations - database not configured"
