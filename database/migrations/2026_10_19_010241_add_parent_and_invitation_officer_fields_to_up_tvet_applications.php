@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->string('mother_name')->nullable();
                 $table->string('mother_contact')->nullable();
                 $table->string('mother_occupation')->nullable();
-                $table->decimal('total_income', 10, 2)->nullable()->comment('Total household income in RM');
+                $table->decimal('total_income', 10, 2)->nullable();
 
                 // Invitation officer fields
                 $table->string('invitation_officer_name')->nullable();
@@ -37,7 +37,7 @@ return new class extends Migration
                 $table->string('mother_name')->nullable();
                 $table->string('mother_contact')->nullable();
                 $table->string('mother_occupation')->nullable();
-                $table->decimal('total_income', 10, 2)->nullable()->comment('Total household income in RM');
+                $table->decimal('total_income', 10, 2)->nullable();
 
                 // Invitation officer fields
                 $table->string('invitation_officer_name')->nullable();
