@@ -89,7 +89,7 @@ class CourseSeeder extends Seeder
             ],
             [
                 'category' => 'Pembuatan Roti',
-                'name' => 'SKM Pembuatan Roti & Pastri',
+                'name' => 'SKM Pembuatan Roti',
                 'description' => 'Teknik asas dan lanjutan dalam pembuatan roti, kek dan pastri komersial.',
                 'career_prospects' => 'Juru Roti (Baker), Penyelia Pastri, Usahawan Bakeri',
                 'min_salary' => 1700.00,
