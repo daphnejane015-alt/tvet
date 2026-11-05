@@ -47,6 +47,7 @@ EXPOSE 8080
 # Make start scripts executable
 RUN chmod +x /var/www/html/start.sh
 RUN chmod +x /var/www/html/start-fly.sh
+RUN chmod +x /var/www/html/start-railway.sh
 
 # For Fly.io, use command instead of CMD to override health check
 CMD ["/var/www/html/start-fly.sh"]
