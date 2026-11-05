@@ -3,14 +3,14 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <h2 class="font-bold text-xl text-gray-800 leading-tight flex items-center gap-2">
-                    <span class="text-2xl">📰</span> Urus Berita
+                    <span class="text-2xl">📰</span> Urus Akhbar
                 </h2>
-                <p class="text-xs text-gray-500 mt-1">Urus semua berita yang dipaparkan di laman utama. ({{ $news->count() }}/10)</p>
+                <p class="text-xs text-gray-500 mt-1">Urus semua akhbar yang dipaparkan di laman utama. ({{ $news->count() }}/10)</p>
             </div>
             @if($news->count() < 10)
                 <a href="{{ route('admin.news.create') }}"
                    class="inline-flex items-center gap-2 bg-theme-accent text-theme-dark font-semibold px-4 py-2 rounded-lg hover:bg-amber-400 transition shadow-sm text-sm">
-                    <span>➕</span> Tambah Berita Baru
+                    <span>➕</span> Tambah Akhbar Baru
                 </a>
             @else
                 <span class="text-xs text-gray-500 bg-gray-100 px-4 py-2 rounded-lg">Had maksimum (10) dicapai</span>
@@ -114,7 +114,7 @@
                                                 <span>✏️</span>
                                             </a>
                                             <form method="POST" action="{{ route('admin.news.destroy', $item) }}"
-                                                  onsubmit="return confirm('Adakah anda pasti mahu memadam berita ini?');">
+                                                  onsubmit="return confirm('Adakah anda pasti mahu memadam akhbar ini?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -130,7 +130,7 @@
                                 <tr>
                                     <td colspan="7" class="py-12 text-center text-gray-400">
                                         <span class="text-4xl block mb-2">📰</span>
-                                        <p class="text-sm font-medium">Tiada berita ditemui.</p>
+                                        <p class="text-sm font-medium">Tiada akhbar ditemui.</p>
                                     </td>
                                 </tr>
                             @endforelse

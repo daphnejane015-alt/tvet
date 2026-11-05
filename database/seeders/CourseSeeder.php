@@ -61,8 +61,8 @@ class CourseSeeder extends Seeder
                 'duration' => '1 Tahun',
             ],
             [
-                'category' => 'Pengajian Awal Kanak-Kanak',
-                'name' => 'SKM Pengajian Awal Kanak-Kanak',
+                'category' => 'Pendidikan Awal Kanak-Kanak',
+                'name' => 'SKM Pendidikan Awal Kanak-Kanak',
                 'description' => 'Melatih pelajar dalam perkembangan kanak-kanak, kurikulum awal, dan pengurusan pusat jagaan.',
                 'career_prospects' => 'Pengasuh Bertauliah, Pengurus Taska, Usahawan Pusat Jagaan',
                 'min_salary' => 1600.00,

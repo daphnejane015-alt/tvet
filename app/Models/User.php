@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -47,14 +47,6 @@ class User extends Authenticatable
     }
     
     /**
-     * Relationship: satu user boleh ada banyak permohonan
-     */
-    public function applications()
-    {
-        return $this->hasMany(Application::class);
-    }
-
-    /**
      * Relationship: permohonan Google Form UP_TVET / Kursus TVET (boleh banyak)
      */
     public function upTvetApplications()
@@ -84,5 +76,36 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === 'admin';
+    }
+
+    /**
+     * Send the password reset notification.
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\VerifyEmailNotification());
+    }
+
+    /**
+     * Get the email verification URL.
+     */
+    public function getEmailVerificationUrl()
+    {
+        return \Illuminate\Support\Facades\URL::route(
+            'verification.verify',
+            [
+                'id' => $this->getKey(),
+                'hash' => sha1($this->getEmailForVerification()),
+            ],
+            true // absolute URL
+        );
     }
 }

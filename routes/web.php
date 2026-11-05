@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UpTvetController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UpTvetApplicationController;
@@ -28,6 +27,11 @@ Route::get('/pengenalan', function () {
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
 
+// Route Contact Us (Hubungi Kami)
+Route::get('/contact-us', function () {
+    return view('contact-us');
+})->name('contact.us');
+
 // Semak status borang UP_TVET
 Route::get('/up-tvet/status', [UpTvetController::class, 'checkStatus'])->name('up-tvet.status');
 
@@ -35,7 +39,7 @@ Route::get('/up-tvet/status', [UpTvetController::class, 'checkStatus'])->name('u
 require __DIR__.'/auth.php';
 
 // ==== STUDENT ROUTES ====
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'prevent.caching'])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
         if ($user->isAdmin()) {
@@ -44,9 +48,6 @@ Route::middleware('auth')->group(function () {
         $upTvetApplications = $user->upTvetApplications()->latest()->get();
         return view('dashboard', compact('upTvetApplications'));
     })->name('dashboard');
-
-    Route::post('/courses/{course}/apply', [ApplicationController::class, 'store'])->name('applications.store');
-    Route::get('/my-applications', [ApplicationController::class, 'myApplications'])->name('applications.my');
 
     // Permohonan Kursus TVET (Pelajar)
     Route::get('/up-tvet/form', [UpTvetController::class, 'showForm'])->name('up-tvet.form');
@@ -60,18 +61,16 @@ Route::middleware('auth')->group(function () {
 });
 
 // ==== ADMIN ROUTES ====
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin', 'prevent.caching'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/courses', [CourseController::class, 'adminIndex'])->name('courses.index');
+    Route::get('/courses/popular', [AdminDashboardController::class, 'popularCoursesDetails'])->name('courses.popular');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
     Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
     Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
-
-    Route::get('/applications', [ApplicationController::class, 'adminIndex'])->name('applications.index');
-    Route::patch('/applications/{application}', [ApplicationController::class, 'updateStatus'])->name('applications.update');
 
     // Pengurusan Permohonan Google Form UP_TVET (Permohonan Kursus TVET)
     Route::get('/up-tvet', [UpTvetApplicationController::class, 'index'])->name('up-tvet.index');

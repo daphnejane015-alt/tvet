@@ -16,6 +16,7 @@ class UpTvetApplicationController extends Controller
     {
         $search = $request->query('search');
         $status = $request->query('status');
+        $courseFilter = $request->query('course');
 
         $query = UpTvetApplication::with('user')->latest();
 
@@ -24,12 +25,17 @@ class UpTvetApplicationController extends Controller
                 $q->where('full_name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%")
                   ->orWhere('ic_number', 'like', "%{$search}%")
-                  ->orWhere('phone_number', 'like', "%{$search}%");
+                  ->orWhere('phone_number', 'like', "%{$search}%")
+                  ->orWhere('course_interest', 'like', "%{$search}%");
             });
         }
 
         if ($status && in_array($status, ['completed', 'verified', 'contacted'])) {
             $query->where('status', $status);
+        }
+
+        if ($courseFilter) {
+            $query->where('course_interest', $courseFilter);
         }
 
         $applications = $query->paginate(15)->withQueryString();
@@ -38,10 +44,15 @@ class UpTvetApplicationController extends Controller
         $todayCount = UpTvetApplication::whereDate('completed_at', today())->count();
         $verifiedCount = UpTvetApplication::where('status', 'verified')->count();
 
+        // Get distinct courses that have applications for dropdown filter
+        $availableCourses = Course::orderBy('name')->pluck('name');
+
         return view('admin.up_tvet.index', compact(
             'applications',
             'search',
             'status',
+            'courseFilter',
+            'availableCourses',
             'totalCount',
             'todayCount',
             'verifiedCount'
@@ -54,7 +65,7 @@ class UpTvetApplicationController extends Controller
     public function updateStatus(Request $request, UpTvetApplication $upTvetApplication)
     {
         $request->validate([
-            'status' => 'required|in:completed,verified,contacted',
+            'status' => 'required|in:completed,verified,contacted,rejected',
             'notes' => 'nullable|string|max:500',
         ]);
 
@@ -118,7 +129,7 @@ class UpTvetApplicationController extends Controller
             'total_income' => 'nullable|numeric|min:0',
             'invitation_officer_name' => 'nullable|string|max:255',
             'invitation_officer_contact' => 'nullable|string|max:25',
-            'status' => 'required|in:completed,verified,contacted',
+            'status' => 'required|in:completed,verified,contacted,rejected',
             'notes' => 'nullable|string|max:500',
         ]);
 

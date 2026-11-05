@@ -10,16 +10,34 @@ use Illuminate\Support\Str;
 class CourseController extends Controller
 {
     // Senarai kursus (public)
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('category')->latest()->paginate(9);
+        $search = trim($request->get('search', ''));
+
+        $query = Course::with('category')->latest();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('career_prospects', 'like', "%{$search}%")
+                  ->orWhereHas('category', function ($catQuery) use ($search) {
+                      $catQuery->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $courses = $query->paginate(9)->withQueryString();
         $categories = Category::withCount('courses')->get();
-        return view('courses.index', compact('courses', 'categories'));
+
+        return view('courses.index', compact('courses', 'categories', 'search'));
     }
 
     // Papar satu kursus (public)
     public function show(Course $course)
     {
+        // Load course with category relationship to ensure all data is available
+        $course->load('category');
         return view('courses.show', compact('course'));
     }
 
@@ -52,7 +70,9 @@ class CourseController extends Controller
 
         Course::create($validated);
 
-        return redirect()->route('admin.courses.index')->with('success', 'Kursus berjaya ditambah.');
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Kursus berjaya ditambah.')
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate');
     }
 
     // Form edit kursus (admin)
@@ -82,7 +102,9 @@ class CourseController extends Controller
 
         $course->update($validated);
 
-        return redirect()->route('admin.courses.index')->with('success', 'Kursus berjaya dikemaskini.');
+        return redirect()->route('admin.courses.index')
+            ->with('success', 'Kursus berjaya dikemaskini.')
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate');
     }
 
     // Padam kursus (admin)
@@ -96,6 +118,9 @@ class CourseController extends Controller
     public function adminIndex()
     {
         $courses = Course::with('category')->latest()->get();
-        return view('admin.courses.index', compact('courses'));
+        return response()->view('admin.courses.index', compact('courses'))
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
 }

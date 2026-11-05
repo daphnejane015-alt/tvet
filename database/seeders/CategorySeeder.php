@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
             'Teknologi Elektrik',
             'Teknologi Kimpalan',
             'Kenderaan Elektrik (EV)',
-            'Pengajian Awal Kanak-Kanak',
+            'Pendidikan Awal Kanak-Kanak',
             'Pendidikan Prasekolah',
             'Seni Kulinari',
             'Pembuatan Roti',

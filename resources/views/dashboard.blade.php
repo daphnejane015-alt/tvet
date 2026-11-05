@@ -55,7 +55,7 @@
 
                 <div x-data="{ selectedApp: null, showDetailModal: false }">
                     <!-- Action Bar / Summary Header -->
-                    <div class="bg-white rounded-xl shadow-md p-6 mb-8 border-t-4 border-theme-accent flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6 border-t-4 border-theme-accent flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-2xl">📋</span>
@@ -70,6 +70,21 @@
                             <span>➕</span>
                             <span>Mohon Kursus TVET Baharu</span>
                         </a>
+                    </div>
+
+                    <!-- Nota Status Permohonan -->
+                    <div class="mb-6 p-4 rounded-xl bg-blue-50/90 border border-blue-200/80 shadow-xs flex items-start gap-3.5 transition hover:bg-blue-50">
+                        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-bold shrink-0 mt-0.5 shadow-xs">
+                            ℹ️
+                        </div>
+                        <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            <span class="font-extrabold text-blue-900">Peringatan:</span>
+                            Sila pastikan status permohonan kursus bertukar menjadi
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 mx-1 rounded-full text-xs font-black bg-blue-100 text-blue-900 border border-blue-300">
+                                <span>★</span> DISAHKAN
+                            </span>
+                            untuk menjamin permohonan anda telah berjaya.
+                        </div>
                     </div>
 
                     <!-- Permohonan Saya Section (Full List in Dashboard) -->
@@ -106,6 +121,7 @@
                                             <th class="py-3.5 px-6">Kursus Dipohon</th>
                                             <th class="py-3.5 px-4">Tarikh Permohonan</th>
                                             <th class="py-3.5 px-4">Status</th>
+                                            <th class="py-3.5 px-4">Catatan Pentadbir</th>
                                             <th class="py-3.5 px-6 text-center">Tindakan</th>
                                         </tr>
                                     </thead>
@@ -151,6 +167,20 @@
                                                         <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
                                                             <span>✓</span> Telah Mengisi
                                                         </span>
+                                                    @endif
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    @if($app->notes)
+                                                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-2.5 max-w-xs">
+                                                            <div class="flex items-start gap-2">
+                                                                <span class="text-amber-600 text-sm mt-0.5 shrink-0">📝</span>
+                                                                <p class="text-xs text-gray-700 leading-relaxed line-clamp-2" title="{{ $app->notes }}">
+                                                                    {{ $app->notes }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    @else
+                                                        <span class="text-gray-400 text-xs italic">Tiada catatan</span>
                                                     @endif
                                                 </td>
                                                 <td class="py-4 px-6 text-center">
@@ -283,9 +313,20 @@
                                                     <span class="text-xs text-gray-500 font-medium">Kontak Kecemasan:</span>
                                                     <span class="text-sm text-gray-800" x-text="(selectedApp.emergency_contact_name || '-') + ' (' + (selectedApp.emergency_contact_phone || '-') + ')'"></span>
                                                 </div>
-                                                <div class="flex justify-between items-center">
+                                                <div class="flex justify-between items-center pb-2 border-b border-slate-200">
                                                     <span class="text-xs text-gray-500 font-medium">Tarikh Hantar:</span>
                                                     <span class="text-xs text-gray-700 font-medium" x-text="selectedApp.completed_at ? new Date(selectedApp.completed_at).toLocaleString('ms-MY') : '-'"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Admin Notes Section -->
+                                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-amber-600 text-lg">📝</span>
+                                                    <div class="flex-1">
+                                                        <p class="text-xs font-bold text-amber-900 mb-1">Catatan Pentadbir:</p>
+                                                        <p class="text-xs text-gray-700 leading-relaxed" x-text="selectedApp.notes || 'Tiada catatan daripada pentadbir buat masa ini.'"></p>
+                                                    </div>
                                                 </div>
                                             </div>
 

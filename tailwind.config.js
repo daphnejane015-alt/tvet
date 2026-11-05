@@ -36,6 +36,21 @@ export default {
                 'tvet-accent': '#fa897b',     // Map to vibrant coral CTA
                 'tvet-celadon': '#86e3ce',    // Map to fresh mint
                 'tvet-columbia': '#ded1c6',   // Map to sand/champagne
+
+                // Custom theme-* palette used throughout blade templates
+                'theme-light': '#F2F3F4',
+                'theme-beige': '#DED1C6',
+                'theme-purple': '#A77693',
+                'theme-blue': '#174871',
+                'theme-dark': '#0F2D4D',
+                'theme-accent': '#FF6B35',
+                'theme-yellow': '#FFD93D',
+                'theme-cream': '#FFF8E7',
+                'theme-teal': '#86E3CE',
+                'theme-green': '#D0E6A5',
+                'theme-warm-yellow': '#FFDD94',
+                'theme-coral': '#FAB97B',
+                'theme-lavender': '#CCABDB',
             },
         },
     },

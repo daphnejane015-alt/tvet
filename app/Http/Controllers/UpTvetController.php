@@ -37,7 +37,6 @@ class UpTvetController extends Controller
             return response()->json([
                 'authenticated' => false,
                 'completed' => false,
-                'google_form_url' => 'https://forms.gle/hk3YdAxCM1PbhnyD7',
             ]);
         }
 
@@ -55,7 +54,6 @@ class UpTvetController extends Controller
                 'status' => $application->status,
                 'completed_at' => $application->completed_at ? $application->completed_at->format('d/m/Y, h:i A') : $application->created_at->format('d/m/Y, h:i A'),
             ] : null,
-            'google_form_url' => 'https://forms.gle/hk3YdAxCM1PbhnyD7',
         ]);
     }
 
@@ -132,11 +130,8 @@ class UpTvetController extends Controller
             'invitation_officer_name' => $validated['invitation_officer_name'] ?? null,
             'invitation_officer_contact' => $validated['invitation_officer_contact'] ?? null,
             'notes' => $validated['notes'] ?? null,
-            'google_form_url' => 'https://forms.gle/hk3YdAxCM1PbhnyD7',
             'status' => 'completed',
             'completed_at' => now(),
-            'google_form_submitted_at' => now(),
-            'agreed_to_terms' => true,
         ]);
 
         // Hantar emel pengesahan kepada pelajar dan notifikasi kepada admin

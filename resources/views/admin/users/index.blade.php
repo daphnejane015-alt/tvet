@@ -163,17 +163,6 @@
                                                     <span class="text-[10px] text-gray-500 font-medium pl-1">+{{ $user->upTvetApplications->count() - 3 }} kursus lagi</span>
                                                 @endif
                                             </div>
-                                        @elseif($user->applications && $user->applications->count() > 0)
-                                            <div class="space-y-1">
-                                                @foreach($user->applications->take(2) as $app)
-                                                    <span class="inline-block bg-blue-50 text-blue-700 text-xs font-medium px-2 py-0.5 rounded border border-blue-200/50">
-                                                        {{ $app->course ? $app->course->name : 'Kursus #' . $app->course_id }}
-                                                    </span>
-                                                @endforeach
-                                                @if($user->applications->count() > 2)
-                                                    <span class="text-[10px] text-gray-400 block">+{{ $user->applications->count() - 2 }} lagi</span>
-                                                @endif
-                                            </div>
                                         @else
                                             <span class="text-gray-400 text-xs italic">Belum Memohon</span>
                                         @endif
@@ -190,8 +179,8 @@
                                                     <span>✓</span> Approved (Lengkap)
                                                 </span>
                                                 @if($latestApp->status && $latestApp->status !== 'completed')
-                                                    <span class="block text-[10px] font-semibold text-gray-500 pl-1 uppercase">
-                                                        Status: {{ ucfirst($latestApp->status) }}
+                                                    <span class="block text-[10px] font-semibold text-gray-500 pl-1">
+                                                        Status: {{ $latestApp->status === 'verified' ? 'Disahkan' : ($latestApp->status === 'contacted' ? 'Dihubungi' : ($latestApp->status === 'rejected' ? 'Ditolak' : ucfirst($latestApp->status))) }}
                                                     </span>
                                                 @endif
                                             </div>

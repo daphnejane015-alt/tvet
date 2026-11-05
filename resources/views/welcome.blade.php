@@ -5,7 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ config('app.name', 'AceTVET') }} - Portal Pendidikan & Latihan Kemahiran Negara</title>
 
-        <link rel="icon" type="image/png" href="{{ asset('images/logo-acetvet-new.png') }}?v={{ time() }}">
+        <!-- PWA Meta Tags -->
+        <meta name="theme-color" content="#174871">
+        <meta name="msapplication-TileColor" content="#174871">
+        <meta name="msapplication-config" content="/browserconfig.xml">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="apple-mobile-web-app-title" content="AceTVET">
+        <meta name="description" content="Portal Pendidikan & Latihan Kemahiran Negara - Sistem Pengurusan & Permohonan TVET">
+
+        <!-- PWA Manifest -->
+        <link rel="manifest" href="{{ asset('manifest.json') }}?v={{ time() }}">
+        <link rel="apple-touch-icon" href="{{ asset('images/logo-acetvet-new.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/logo-acetvet-new.png') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:300,400,500,600,700,800&display=swap" rel="stylesheet" />
 
@@ -124,20 +136,20 @@
         <div id="preloader">
             <img src="{{ asset('images/logo-acetvet-new.png') }}?v={{ time() }}" alt="AceTVET Loading" class="h-28 sm:h-40 w-auto loader-logo drop-shadow-2xl">
             <div class="loader-bar"></div>
-            <p class="text-white/90 text-xs mt-4 tracking-widest uppercase font-semibold">Memuatkan AceTVET Portal...</p>
+            <p class="text-white/90 text-xs mt-4 tracking-wider font-semibold">AceTVET loading...</p>
         </div>
 
         @include('layouts.navigation')
 
         <!-- FLOATING WHATSAPP BUTTON -->
-        <a href="https://wa.me/60164801473?text=Halo,%20saya%20ingin%20bertanya%20tentang%20AceTVET"
+        <a href="https://wa.me/60164801473?text=Hai,%20saya%20ingin%20bertanya%20tentang%20AceTVET"
            target="_blank"
            rel="noopener noreferrer"
            class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark px-4 py-3 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 group hover:scale-105">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            <span class="font-extrabold text-xs tracking-wide">Bantuan TVET</span>
+            <span class="font-extrabold text-xs tracking-wide">Hubungi Kami</span>
         </a>
 
         <!-- HERO SECTION WITH SWIPER SLIDER -->
@@ -205,7 +217,6 @@
                                     <a href="{{ route('courses.index') }}"
                                        class="magnetic-btn bg-gradient-to-r from-theme-accent to-theme-yellow hover:shadow-xl hover:shadow-theme-accent/50 text-theme-dark font-extrabold px-5 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm rounded-xl transition flex items-center gap-2 shadow-lg">
                                         <span>Lihat Kursus TVET</span>
-                                        <span>→</span>
                                     </a>
                                     <a href="{{ route('pengenalan') }}"
                                        class="magnetic-btn bg-white/20 hover:bg-white/30 border-2 border-white/40 text-white font-bold px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm rounded-xl backdrop-blur-md transition flex items-center gap-1.5 shadow-lg">
@@ -244,12 +255,11 @@
                                     Permohonan kemasukan ke Institusi Latihan Kemahiran Awam (ILKA) dibuka. Pilih kursus diminati dan hantar secara atas talian.
                                 </p>
                                 <div class="flex gap-3 justify-center flex-wrap pointer-events-auto">
-                                    <button type="button"
-                                            @click="$dispatch('open-up-tvet-modal')"
-                                            class="magnetic-btn bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark font-extrabold px-5 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm rounded-xl transition shadow-xl shadow-theme-accent/30 flex items-center gap-2 cursor-pointer">
+                                    <a href="{{ route('up-tvet.form') }}"
+                                       class="magnetic-btn bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark font-extrabold px-5 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm rounded-xl transition shadow-xl shadow-theme-accent/30 flex items-center gap-2 cursor-pointer">
                                         <span>Borang Permohonan TVET</span>
                                         <span>📝</span>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -284,8 +294,7 @@
                                 <div class="flex gap-3 justify-center flex-wrap pointer-events-auto">
                                     <a href="#kelebihan-section"
                                        class="magnetic-btn bg-white/20 hover:bg-white/30 border-2 border-white/40 text-white font-bold px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm rounded-xl backdrop-blur-md transition flex items-center gap-2 shadow-lg">
-                                        <span>Kelebihan AceTVET</span>
-                                        <span>↓</span>
+                                        <span>Kelebihan TVET</span>
                                     </a>
                                 </div>
                             </div>
@@ -328,45 +337,45 @@
         </div>
 
         <!-- QUICK ACCESS STATS BAR (Modern Float Bar) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-6 mb-6 sm:mb-8 relative z-10">
             <div class="bg-white rounded-2xl shadow-xl border border-theme-teal/30 p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 divide-y md:divide-y-0 md:divide-x divide-theme-teal/30">
                 <div class="flex items-center gap-3.5 p-2">
                     <div class="w-11 h-11 rounded-2xl bg-theme-teal/20 text-theme-blue flex items-center justify-center text-xl shrink-0">
                         🎓
                     </div>
                     <div>
-                        <span class="text-lg sm:text-2xl font-extrabold text-theme-dark block leading-none">100%</span>
-                        <span class="text-[11px] text-slate-600 font-bold uppercase tracking-wide">Diiktiraf JPK</span>
+                        <span class="text-base sm:text-2xl font-extrabold text-theme-dark block leading-none">100%</span>
+                        <span class="text-[10px] sm:text-[11px] text-slate-600 font-bold uppercase tracking-wide block">Diiktiraf JPK</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3.5 p-2 pt-4 md:pt-2 md:pl-6">
+                <div class="flex items-center gap-3.5 p-2">
                     <div class="w-11 h-11 rounded-2xl bg-theme-lavender/30 text-theme-purple flex items-center justify-center text-xl shrink-0">
                         💼
                     </div>
                     <div>
-                        <span class="text-lg sm:text-2xl font-extrabold text-theme-dark block leading-none">94.8%</span>
-                        <span class="text-[11px] text-slate-600 font-bold uppercase tracking-wide">Kebolehpasaran</span>
+                        <span class="text-base sm:text-2xl font-extrabold text-theme-dark block leading-none">94.8%</span>
+                        <span class="text-[10px] sm:text-[11px] text-slate-600 font-bold uppercase tracking-wide block">Kebolehpasaran</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3.5 p-2 pt-4 md:pt-2 md:pl-6">
+                <div class="flex items-center gap-3.5 p-2">
                     <div class="w-11 h-11 rounded-2xl bg-theme-accent/20 text-theme-accent flex items-center justify-center text-xl shrink-0">
                         🛠️
                     </div>
                     <div>
-                        <span class="text-lg sm:text-2xl font-extrabold text-theme-dark block leading-none">70% Amali</span>
-                        <span class="text-[11px] text-slate-600 font-bold uppercase tracking-wide">Hands-on Bengkel</span>
+                        <span class="text-base sm:text-2xl font-extrabold text-theme-dark block leading-none">70% Amali</span>
+                        <span class="text-[10px] sm:text-[11px] text-slate-600 font-bold uppercase tracking-wide block">Hands-on Bengkel</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3.5 p-2 pt-4 md:pt-2 md:pl-6">
+                <div class="flex items-center gap-3.5 p-2">
                     <div class="w-11 h-11 rounded-2xl bg-theme-yellow/20 text-theme-yellow flex items-center justify-center text-xl shrink-0">
                         ⚡
                     </div>
                     <div>
-                        <span class="text-lg sm:text-2xl font-extrabold text-theme-dark block leading-none">Pantas</span>
-                        <span class="text-[11px] text-slate-600 font-bold uppercase tracking-wide">Borang Terus</span>
+                        <span class="text-base sm:text-2xl font-extrabold text-theme-dark block leading-none">Daftar</span>
+                        <span class="text-[10px] sm:text-[11px] text-slate-600 font-bold uppercase tracking-wide block">Pendaftaran Mudah</span>
                     </div>
                 </div>
             </div>
@@ -477,6 +486,167 @@
             </div>
         </div>
 
+        <!-- ABOUT ACETVET & PARTNERS (Directly under Keratan Akhbar) -->
+        <div id="tentang-acetvet" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+            <!-- About AceTVET Card -->
+            <div data-aos="fade-up" class="bg-gradient-to-br from-white via-theme-cream/40 to-white rounded-3xl p-6 sm:p-10 border border-theme-blue/15 shadow-xl relative overflow-hidden mb-12 sm:mb-16">
+                <div class="absolute -top-20 -right-20 w-72 h-72 bg-theme-yellow/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-theme-blue/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-theme-blue/10 border border-theme-blue/20 text-theme-blue text-xs font-bold tracking-widest">
+                            <span>🏛️AceTVET</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-theme-dark tracking-tight leading-tight">
+                            Peluang Baharu Pendidikan &amp; Masa Depan Kerjaya
+                        </h2>
+                        <div class="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed">
+                            <p>
+                                <strong class="text-theme-dark font-extrabold">AceTVET</strong> bertujuan untuk memperluas peluang pendidikan kepada lepasan SPM, khususnya mereka yang tidak berjaya mendapat tempat di Institusi Pengajian Tinggi Awam (IPTA) disebabkan keputusan akademik atau tidak lulus peperiksaan SPM. Program utama yang ditawarkan oleh AceTVET merangkumi pengajian program Sijil Kemahiran Malaysia (SKM) di bawah TVET Malaysia.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <a href="{{ route('courses.index') }}"
+                               class="inline-flex items-center gap-2 bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark font-extrabold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition shadow-md hover:shadow-lg hover:scale-105">
+                                <span>Terokai Program Kursus</span>
+                            </a>
+                            <a href="{{ route('pengenalan') }}"
+                               class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-theme-blue border border-theme-blue/20 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition shadow-sm hover:shadow">
+                                <span>Maklumat TVET</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex justify-center">
+                        <div class="w-full max-w-xs sm:max-w-sm rounded-2xl p-6 bg-gradient-to-br from-theme-light via-white to-theme-cream border-2 border-theme-blue/20 shadow-lg text-center transform hover:-translate-y-1 transition duration-300">
+                            <div class="h-36 sm:h-44 flex items-center justify-center p-3 bg-white/90 rounded-xl shadow-xs border border-theme-blue/10">
+                                <img src="{{ asset('images/logo-acetvet-new.png') }}?v={{ time() }}" 
+                                     alt="Logo AceTVET" 
+                                     class="max-h-full max-w-full w-auto object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105">
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-theme-beige/40">
+                                <span class="text-theme-dark font-extrabold text-base block">AceTVET</span>
+                                <span class="text-theme-blue font-bold text-[11px] uppercase tracking-wider block mt-0.5">Peneraju Latihan Kemahiran</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARTNERS SECTION -->
+            <div data-aos="fade-up" class="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+                <span class="text-theme-blue font-extrabold text-[10px] sm:text-xs tracking-widest uppercase bg-theme-blue/10 px-3.5 py-1 rounded-full border border-theme-blue/20">
+                    Rakan Kolaborasi Strategik
+                </span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-theme-dark mt-2.5 tracking-tight">
+                    Partners
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5">
+                    Rakan kerjasama strategik, badan pentauliahan dan institusi pengajian dalam ekosistem latihan kemahiran AceTVET.
+                </p>
+            </div>
+
+            <!-- Partners Logo Showcase -->
+            <div data-aos="fade-up" data-aos-delay="100" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
+                <!-- Partner 1: TVET Malaysia -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-tvet-malaysia.png') }}?v={{ time() }}"
+                             alt="TVET Malaysia - Empowering the Nation"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        TVET Malaysia
+                    </span>
+                </div>
+
+                <!-- Partner 2: PTPK -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-ptpk.png') }}?v={{ time() }}"
+                             alt="Perbadanan Tabung Pembangunan Kemahiran (PTPK)"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        Tabung Pembangunan Kemahiran (PTPK)
+                    </span>
+                </div>
+
+                <!-- Partner 3: MQA -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-mqa.png') }}?v={{ time() }}"
+                             alt="Agensi Kelayakan Malaysia (MQA)"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        MQA (Agensi Kelayakan Malaysia)
+                    </span>
+                </div>
+
+                <!-- Partner 4: iCEPS -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-iceps.png') }}?v={{ time() }}"
+                             alt="Institute of Continuing Education & Professional Studies (iCEPS)"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        iCEPS (UiTM)
+                    </span>
+                </div>
+
+                <!-- Partner 5: UTMSPACE -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-utmspace.png') }}?v={{ time() }}"
+                             alt="UTMSPACE"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        UTM
+                    </span>
+                </div>
+
+                <!-- Partner 6: UMCCed -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-umcced.png') }}?v={{ time() }}"
+                             alt="University of Malaya Centre for Continuing Education (UMCCed)"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        UM (Universiti Malaya)
+                    </span>
+                </div>
+
+                <!-- Partner 7: Kolej Teknikal Bumiputera (KTB) -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-ktb.png') }}?v={{ time() }}"
+                             alt="Kolej Teknikal Bumiputera"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        Kolej Teknikal Bumiputera
+                    </span>
+                </div>
+
+                <!-- Partner 8: Kolej Teknikal Ibnu Sina (KTIS) -->
+                <div class="group bg-white rounded-2xl p-4 sm:p-5 border border-theme-blue/15 shadow-sm hover:shadow-xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center justify-center transform hover:-translate-y-1">
+                    <div class="h-16 sm:h-20 w-full flex items-center justify-center p-1.5">
+                        <img src="{{ asset('images/partners/partner-ktis.png') }}?v={{ time() }}"
+                             alt="Kolej Teknikal Ibnu Sina"
+                             class="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <span class="mt-3 text-[11px] sm:text-xs font-bold text-slate-700 text-center line-clamp-1 group-hover:text-theme-blue transition-colors">
+                        Kolej Teknikal Ibnu Sina
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <!-- KELEBIHAN ACETVET (Floating modern cards) -->
         <div id="kelebihan-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
             <div data-aos="fade-up" class="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
@@ -484,7 +654,7 @@
                     Kelebihan Ekosistem TVET
                 </span>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-theme-dark mt-2.5 tracking-tight">
-                    Mengapa Memilih AceTVET?
+                    Mengapa Memilih TVET?
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-600 mt-2">
                     Laluan pantas ke alam kerjaya berpendapatan tinggi melalui penguasaan kemahiran praktikal.
@@ -493,108 +663,159 @@
 
             <div class="h-scroll md:grid md:grid-cols-3 md:gap-6 -mx-4 px-4 sm:mx-0 sm:px-0">
                 <!-- Card 1 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-blue/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-blue/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-blue/15 text-theme-blue rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-blue group-hover:text-white transition duration-300 shadow-sm">
-                            🎓
+                            🎯
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Persijilan Diiktiraf</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Kemahiran Terus Guna</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Sijil Kemahiran Malaysia (SKM) & Diploma diiktiraf Jabatan Pembangunan Kemahiran (JPK) serta sektor industri.
+                            Graduan memperoleh kemahiran yang terus boleh digunakan di tempat kerja.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-blue text-xs font-bold gap-1">
-                        <span>Piawaian NOSS</span>
+                        <span>Sedia Bekerja</span>
                         <span>✓</span>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-accent/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-accent/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-accent/15 text-theme-accent rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-accent group-hover:text-white transition duration-300 shadow-sm">
                             🛠️
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Peralatan Terkini</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Persekitaran Industri Sebenar</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Bengkel dan makmal teknologi berstandard industri moden bagi memastikan kemahiran relevan dan sedia guna.
+                            Latihan menggunakan peralatan dan persekitaran industri sebenar.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-accent text-xs font-bold gap-1">
-                        <span>Fasiliti Moden</span>
+                        <span>Peralatan Moden</span>
                         <span>✓</span>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-purple/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-purple/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-purple/20 text-theme-purple rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-purple group-hover:text-white transition duration-300 shadow-sm">
-                            💼
+                            🏫
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Peluang Kerjaya Cerah</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Yuran Awam Berpatutan</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Rangkaian hubungan kukuh bersama pemain industri utama dan program On-the-Job Training (OJT) berkualiti.
+                            Yuran pengajian di institusi awam (ILP, ADTEC) percuma atau sangat rendah.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-purple text-xs font-bold gap-1">
-                        <span>Penempatan Pantas</span>
+                        <span>Kos Minimum</span>
                         <span>✓</span>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-yellow/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-yellow/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-yellow/20 text-theme-yellow rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-yellow group-hover:text-theme-dark transition duration-300 shadow-sm">
                             💰
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Biasiswa & Elaun</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Kemudahan Pembiayaan</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Kemudahan pinjaman PTPK, tajaan agensi kerajaan dan elaun bulanan bagi meringankan beban kewangan pelajar.
+                            <a href="{{ route('pengenalan') }}" class="text-theme-blue font-bold underline hover:text-theme-accent transition">Pinjaman PTPK</a> tersedia antara RM5,000 hingga RM24,000 untuk institusi swasta.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-yellow text-xs font-bold gap-1">
-                        <span>Bantuan Yuran</span>
+                        <span>Bantuan PTPK</span>
                         <span>✓</span>
                     </div>
                 </div>
 
                 <!-- Card 5 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-blue/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-blue/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-blue/15 text-theme-blue rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-blue group-hover:text-white transition duration-300 shadow-sm">
-                            🏢
+                            🎓
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Penginapan & Asrama</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Pengiktirafan Rasmi</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Kemudahan tempat tinggal selesa, dewan makan dan aktiviti kokurikulum bagi pembangunan sahsiah holistik.
+                            Sijil <a href="{{ route('pengenalan') }}" class="text-theme-blue font-bold underline hover:text-theme-accent transition">SKM</a>, DKM, dan DLKM diiktiraf oleh JPK, MQA, dan JPA.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-blue text-xs font-bold gap-1">
-                        <span>Suasana Kondusif</span>
+                        <span>Diiktiraf Kerajaan</span>
                         <span>✓</span>
                     </div>
                 </div>
 
                 <!-- Card 6 -->
-                <div class="group w-64 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-accent/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-accent/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
                     <div>
                         <div class="w-12 h-12 bg-theme-accent/15 text-theme-accent rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-accent group-hover:text-white transition duration-300 shadow-sm">
-                            🤝
+                            🔍
                         </div>
-                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Bimbingan Profesional</h3>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Semakan MySPIKE</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            Tenaga pengajar berpengalaman dari industri yang memberi bimbingan peribadi dan konsultasi kerjaya.
+                            Pengesahan sijil SKM boleh disemak melalui sistem MySPIKE JPK oleh majikan.
                         </p>
                     </div>
                     <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-accent text-xs font-bold gap-1">
-                        <span>Pakar Terlatih</span>
+                        <span>Kesahihan Terjamin</span>
+                        <span>✓</span>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-purple/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 bg-theme-purple/20 text-theme-purple rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-purple group-hover:text-white transition duration-300 shadow-sm">
+                            📈
+                        </div>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Laluan Kerjaya Jelas</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Laluan kerjaya jelas dari <a href="{{ route('pengenalan') }}" class="text-theme-blue font-bold underline hover:text-theme-accent transition">SKM Tahap 1</a> hingga Ijazah Sarjana Muda Teknologi Tahap 6.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-purple text-xs font-bold gap-1">
+                        <span>Peningkatan Tahap</span>
+                        <span>✓</span>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-yellow/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 bg-theme-yellow/20 text-theme-yellow rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-yellow group-hover:text-theme-dark transition duration-300 shadow-sm">
+                            🚀
+                        </div>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Peluang Keusahawanan</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Peluang keusahawanan dengan kemahiran praktikal selepas tamat pengajian.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-yellow text-xs font-bold gap-1">
+                        <span>Bina Perniagaan</span>
+                        <span>✓</span>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="group w-72 sm:w-auto p-5 sm:p-7 bg-white rounded-2xl border border-theme-beige/30 shadow-md hover:shadow-2xl hover:border-theme-blue/40 transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+                    <div>
+                        <div class="w-12 h-12 bg-theme-blue/15 text-theme-blue rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-theme-blue group-hover:text-white transition duration-300 shadow-sm">
+                            🏛️
+                        </div>
+                        <h3 class="font-extrabold text-base sm:text-lg text-theme-dark mb-2 leading-tight">Peluang Sektor Awam</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Jabatan Perkhidmatan Awam (JPA) mengiktiraf SKM untuk jawatan teknikal kerajaan.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-theme-beige/30 flex items-center text-theme-blue text-xs font-bold gap-1">
+                        <span>Jawatan Awam</span>
                         <span>✓</span>
                     </div>
                 </div>
             </div>
-            <p class="text-center text-[10px] text-slate-400 mt-2 md:hidden">← Leret untuk lihat semua kelebihan →</p>
+            <p class="text-center text-[10px] text-slate-400 mt-2 md:hidden"></p>
         </div>
 
         <!-- SPOTLIGHT KURSUS TEKSTIKAL (Floating Banner with CTA) -->
@@ -605,7 +826,7 @@
                 <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
                     <div class="max-w-2xl text-center lg:text-left">
                         <span class="text-theme-yellow text-xs font-extrabold uppercase tracking-widest bg-theme-yellow/15 px-3 py-1 rounded-full border border-theme-yellow/30">
-                            Katalog Penuh
+                            Terokai Kursus
                         </span>
                         <h2 class="text-2xl sm:text-4xl font-extrabold mt-3 leading-tight">
                             Pilih Bidang Minat Anda Sekarang
@@ -618,14 +839,14 @@
                     <div class="flex flex-col sm:flex-row gap-3 shrink-0">
                         <a href="{{ route('courses.index') }}"
                            class="bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark font-extrabold px-6 py-3.5 rounded-xl text-sm transition shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2">
-                            <span>Terokai Semua Kursus</span>
+                            <span>Lihat Semua Kursus</span>
                             <span>🔍</span>
                         </a>
-                        <button type="button" @click="$dispatch('open-up-tvet-modal')"
-                                class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition backdrop-blur-md flex items-center justify-center gap-2 cursor-pointer">
+                        <a href="{{ route('up-tvet.form') }}"
+                           class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition backdrop-blur-md flex items-center justify-center gap-2 cursor-pointer">
                             <span>Daftar Permohonan</span>
                             <span>✍️</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -641,13 +862,6 @@
                             <span class="text-white font-extrabold text-base tracking-tight block">AceTVET Portal</span>
                             <span class="text-[10px] text-theme-yellow">Sistem Pengurusan & Permohonan TVET</span>
                         </div>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-5 text-xs">
-                        <a href="{{ route('welcome') }}" class="hover:text-white transition">Utama</a>
-                        <a href="{{ route('pengenalan') }}" class="hover:text-white transition">Pengenalan</a>
-                        <a href="{{ route('courses.index') }}" class="hover:text-white transition">Kursus Ditawarkan</a>
-                        <a href="{{ route('login', ['role' => 'student']) }}" class="hover:text-white transition">Log Masuk Pelajar</a>
-                        <a href="{{ route('admin.login') }}" class="hover:text-theme-accent transition">Portal Pentadbir</a>
                     </div>
                 </div>
 
@@ -670,6 +884,35 @@
                     }
                     document.getElementById('body-content').classList.remove('overflow-hidden');
                     AOS.init({ duration: 500, once: true });
+
+                    // Handle bfcache
+                    window.addEventListener('pageshow', (event) => {
+                        if (event.persisted && preloader) {
+                            preloader.classList.add('preloader-hidden');
+                        }
+                    });
+
+                    // Trigger preloader on leaving page via links
+                    document.addEventListener('click', (e) => {
+                        const link = e.target.closest('a');
+                        if (!link) return;
+                        const href = link.getAttribute('href');
+                        const target = link.getAttribute('target');
+                        if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:') || target === '_blank' || link.hasAttribute('download')) {
+                            return;
+                        }
+                        try {
+                            const url = new URL(link.href, window.location.origin);
+                            if (url.origin === window.location.origin) {
+                                if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash !== '') {
+                                    return;
+                                }
+                                if (preloader) {
+                                    preloader.classList.remove('preloader-hidden');
+                                }
+                            }
+                        } catch (err) {}
+                    });
 
                     // Initialize news swiper after AOS
                     setTimeout(() => {
@@ -722,5 +965,21 @@
 
         <!-- Modal Permohonan UP_TVET -->
         <x-up-tvet-modal />
+
+        <!-- PWA Service Worker Registration -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js?version=acetvet-v9')
+                        .then(function(registration) {
+                            console.log('Service Worker registered with scope:', registration.scope);
+                            // Force update service worker
+                            registration.update();
+                        }, function(err) {
+                            console.log('Service Worker registration failed:', err);
+                        });
+                });
+            }
+        </script>
     </body>
 </html>

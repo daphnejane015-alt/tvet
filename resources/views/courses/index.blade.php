@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-extrabold text-xl text-theme-dark tracking-tight">
-                {{ __('Katalog Kursus TVET') }}
+                {{ __('Senarai Kursus TVET') }}
             </h2>
             <span class="text-xs bg-theme-light/60 text-theme-dark font-bold px-3 py-1 rounded-full border border-theme-purple/40">
                 {{ $courses->total() }} Kursus Ditawarkan
@@ -24,6 +24,19 @@
             career_prospects: '',
             image_url: '',
             mohon_url: ''
+        },
+        getProspectPoints(text) {
+            if (!text) return [];
+            let raw = text.trim();
+            let lines = [];
+            if (raw.includes('\n') || /(^|\n)\s*[\*\-•]/.test(raw)) {
+                lines = raw.split(/\r\n|\r|\n/);
+            } else if (raw.includes(',')) {
+                lines = raw.split(',');
+            } else {
+                lines = [raw];
+            }
+            return lines.map(line => line.replace(/^[\s\*\-•\d\.\)]+/, '').trim()).filter(line => line.length > 0);
         },
         openDetailModal(course) {
             this.activeCourse = course;
@@ -53,25 +66,48 @@
                     Terokai Kursus <span class="bg-gradient-to-r from-theme-purple via-theme-light to-theme-yellow bg-clip-text text-transparent">TVET Berkualiti</span>
                 </h1>
                 
-                <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+                <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto mb-6 font-normal leading-relaxed">
                     Kembangkan bakat teknikal dan vokasional anda dengan sijil diiktiraf industri, latihan amali bersama pakar, dan potensi gaji yang lumayan.
                 </p>
 
-                <!-- Search / Category Pills -->
-                <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
-                    <button @click="selectedCategory = 'all'"
-                            :class="selectedCategory === 'all' ? 'bg-gradient-to-r from-theme-blue to-[#7a7aff] text-white shadow-lg shadow-theme-blue/30 scale-105' : 'bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/60'"
-                            class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer">
-                        ✨ Semua Kategori ({{ $courses->total() }})
-                    </button>
-                    @if(isset($categories))
-                        @foreach($categories as $cat)
-                            <button @click="selectedCategory = '{{ $cat->id }}'"
-                                    :class="selectedCategory === '{{ $cat->id }}' ? 'bg-gradient-to-r from-theme-blue to-[#7a7aff] text-white shadow-lg shadow-theme-blue/30 scale-105' : 'bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/60'"
-                                    class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer">
-                                {{ $cat->name }} <span class="text-[10px] opacity-70 ml-1">({{ $cat->courses_count }})</span>
+                <!-- Modern Search Bar -->
+                <div class="max-w-2xl mx-auto">
+                    <form method="GET" action="{{ route('courses.index') }}" class="relative">
+                        <div class="relative flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-1.5 shadow-2xl transition-all duration-300 focus-within:border-theme-accent focus-within:ring-2 focus-within:ring-theme-accent/50 focus-within:bg-white/15">
+                            <div class="pl-4 pr-2 text-slate-300 pointer-events-none flex items-center">
+                                <svg class="w-5 h-5 text-theme-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                            <input type="text"
+                                   name="search"
+                                   value="{{ request('search') }}"
+                                   placeholder="Cari kursus pilihan anda (cth: Kimpalan, Elektrik...)"
+                                   autocomplete="off"
+                                   class="w-full bg-transparent border-0 text-white placeholder-slate-400 text-xs sm:text-sm font-medium focus:ring-0 focus:outline-none py-2.5 px-2">
+                            
+                            @if(request('search'))
+                                <a href="{{ route('courses.index') }}" 
+                                   class="px-2.5 py-1.5 text-xs text-slate-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors mr-1 flex items-center gap-1 font-semibold"
+                                   title="Kosongkan carian">
+                                    <span>✕</span>
+                                    <span class="hidden sm:inline text-[11px]">Set Semula</span>
+                                </a>
+                            @endif
+
+                            <button type="submit"
+                                    class="bg-gradient-to-r from-theme-accent to-theme-yellow hover:from-theme-yellow hover:to-theme-accent text-theme-dark font-extrabold px-5 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 shrink-0 cursor-pointer flex items-center gap-1.5">
+                                <span>Cari</span>
+                                <span class="hidden sm:inline">Kursus</span>
                             </button>
-                        @endforeach
+                        </div>
+                    </form>
+
+                    @if(request('search'))
+                        <div class="mt-3 flex items-center justify-center gap-2 text-xs text-slate-300">
+                            <span>Hasil carian untuk: <strong class="text-theme-yellow">"{{ request('search') }}"</strong> ({{ $courses->total() }} kursus ditemui)</span>
+                            <a href="{{ route('courses.index') }}" class="underline text-theme-light hover:text-white ml-1">Papar Semua</a>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -100,17 +136,26 @@
             @if ($courses->isEmpty())
                 <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-12 text-center max-w-lg mx-auto my-12">
                     <div class="w-20 h-20 bg-theme-light/40 text-theme-blue rounded-2xl flex items-center justify-center text-4xl mx-auto mb-4 shadow-inner">
-                        📚
+                        🔍
                     </div>
-                    <h3 class="text-xl font-extrabold text-theme-dark mb-2">Tiada Kursus Tersedia</h3>
-                    <p class="text-sm text-slate-500">Sila semak semula kemudian atau hubungi pihak pentadbir untuk maklumat terkini.</p>
+                    @if(request('search'))
+                        <h3 class="text-xl font-extrabold text-theme-dark mb-2">Tiada Kursus Dijumpai</h3>
+                        <p class="text-sm text-slate-500 mb-5">Tiada padanan kursus untuk kata kunci <span class="font-bold text-slate-800">"{{ request('search') }}"</span>. Cuba kata kunci lain seperti elektrik, kimpalan, automotif atau komputer.</p>
+                        <a href="{{ route('courses.index') }}"
+                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-theme-blue text-white text-xs font-bold shadow-md hover:bg-theme-blue/90 hover:scale-105 transition-all">
+                            <span>← Papar Semua Kursus</span>
+                        </a>
+                    @else
+                        <h3 class="text-xl font-extrabold text-theme-dark mb-2">Tiada Kursus Tersedia</h3>
+                        <p class="text-sm text-slate-500">Sila semak semula kemudian atau hubungi pihak pentadbir untuk maklumat terkini.</p>
+                    @endif
                 </div>
             @else
                 <!-- COURSES GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                     @foreach ($courses as $course)
                         @php
-                            $imageUrl = $course->image ? asset('storage/' . $course->image) : asset('images/logo-acetvet.png');
+                            $imageUrl = $course->image ? asset('storage/' . $course->image) : asset('images/logo-acetvet-new.png');
                             $hasCustomImage = (bool) $course->image;
                             $salaryText = ($course->min_salary || $course->max_salary) 
                                 ? 'RM ' . number_format($course->min_salary, 0) . ' - ' . number_format($course->max_salary, 0) . ' / bln' 
@@ -176,7 +221,7 @@
                                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-theme-dark/50 backdrop-blur-[2px]">
                                     <span class="px-4 py-2 bg-white text-theme-dark rounded-xl text-xs font-extrabold shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                         <span>🔍</span>
-                                        <span>Info Pantas Kursus</span>
+                                        <span>Info Kursus</span>
                                     </span>
                                 </div>
                             </div>
@@ -222,20 +267,12 @@
                                         </span>
                                     </div>
 
-                                <!-- Action Buttons -->
-                                <div class="flex items-center gap-2.5 pt-3 border-t border-slate-100">
-                                    <!-- Direct Link to Dedicated Details Page -->
+                                <!-- Action Button (Direct Link to Dedicated Details Page) -->
+                                <div class="pt-3 border-t border-slate-100">
                                     <a href="{{ route('courses.show', $course) }}"
-                                       class="flex-1 py-2.5 px-3 text-xs font-extrabold text-theme-dark bg-theme-light/40 hover:bg-theme-blue hover:text-white rounded-xl transition-all duration-200 flex items-center justify-center gap-1.5 shadow-xs">
-                                        <span>Lihat Info</span>
-                                        <span>🔍</span>
-                                    </a>
-
-                                    <!-- Mohon Direct -->
-                                    <a href="{{ $mohonUrl }}"
-                                       class="flex-1 py-2.5 px-3 text-xs font-extrabold text-slate-950 bg-gradient-to-r from-theme-accent to-amber-400 hover:from-amber-400 hover:to-amber-300 rounded-xl transition shadow-sm hover:shadow-md flex items-center justify-center gap-1 text-center">
-                                        <span>Mohon TVET</span>
-                                        <span>→</span>
+                                       class="w-full py-2.5 px-4 text-xs font-extrabold text-sky-900 bg-sky-100 hover:bg-sky-200 active:bg-sky-300 border border-sky-300/80 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-xs hover:shadow-md group/btn">
+                                        <span>Lihat Maklumat Terperinci</span>
+                                        <span class="text-sm transition-transform duration-200 group-hover/btn:translate-x-1">🔍</span>
                                     </a>
                                 </div>
                                 </div>
@@ -344,11 +381,26 @@
 
                             <!-- Career -->
                             <div class="p-4 rounded-2xl bg-theme-light/30 border border-theme-light/60">
-                                <span class="text-[10px] uppercase tracking-wider font-extrabold text-theme-blue block mb-1">
-                                    💼 Prospek Kerjaya
+                                <span class="text-[10px] uppercase tracking-wider font-extrabold text-theme-blue block mb-1.5 flex items-center gap-1.5">
+                                    <span>💼</span>
+                                    <span>Prospek &amp; Laluan Kerjaya</span>
                                 </span>
-                                <p class="text-xs text-slate-700 font-medium line-clamp-3 leading-relaxed" 
-                                   x-text="activeCourse.career_prospects"></p>
+                                <div class="max-h-36 overflow-y-auto pr-1">
+                                    <template x-if="getProspectPoints(activeCourse.career_prospects).length > 1">
+                                        <ul class="space-y-1.5 text-xs text-slate-700">
+                                            <template x-for="(point, idx) in getProspectPoints(activeCourse.career_prospects)" :key="idx">
+                                                <li class="flex items-start gap-2">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-theme-accent shrink-0 mt-1.5"></span>
+                                                    <span class="font-medium leading-relaxed" x-text="point"></span>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </template>
+                                    <template x-if="getProspectPoints(activeCourse.career_prospects).length <= 1">
+                                        <p class="text-xs text-slate-700 font-medium leading-relaxed" 
+                                           x-text="getProspectPoints(activeCourse.career_prospects)[0] || activeCourse.career_prospects"></p>
+                                    </template>
+                                </div>
                             </div>
                         </div>
 

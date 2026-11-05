@@ -20,8 +20,8 @@ class UserController extends Controller
         $role = $request->input('role');
 
         $users = User::query()
-            ->with(['upTvetApplications', 'upTvetApplication', 'applications.course'])
-            ->withCount(['applications', 'upTvetApplications'])
+            ->with(['upTvetApplications', 'upTvetApplication'])
+            ->withCount(['upTvetApplications'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")

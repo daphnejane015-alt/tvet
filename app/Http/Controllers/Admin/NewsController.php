@@ -34,7 +34,7 @@ class NewsController extends Controller
         // Check if news limit reached (max 10)
         if (News::count() >= 10) {
             return redirect()->route('admin.news.index')
-                ->with('error', 'Had maksimum berita (10) telah dicapai. Sila padam berita sedia ada sebelum menambah yang baru.');
+                ->with('error', 'Had maksimum akhbar (10) telah dicapai. Sila padam akhbar sedia ada sebelum menambah yang baru.');
         }
 
         $validated = $request->validate([
@@ -59,7 +59,7 @@ class NewsController extends Controller
         News::create($validated);
 
         return redirect()->route('admin.news.index')
-            ->with('success', 'Berita berjaya ditambah.');
+            ->with('success', 'Akhbar berjaya ditambah.');
     }
 
     /**
@@ -108,7 +108,7 @@ class NewsController extends Controller
         $news->update($validated);
 
         return redirect()->route('admin.news.index')
-            ->with('success', 'Berita berjaya dikemaskini.');
+            ->with('success', 'Akhbar berjaya dikemaskini.');
     }
 
     /**
@@ -123,7 +123,7 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect()->route('admin.news.index')
-            ->with('success', 'Berita berjaya dipadam.');
+            ->with('success', 'Akhbar berjaya dipadam.');
     }
 
     /**
@@ -136,6 +136,6 @@ class NewsController extends Controller
 
         $status = $news->is_active ? 'diaktifkan' : 'dinyahaktifkan';
         return redirect()->route('admin.news.index')
-            ->with('success', "Berita berjaya {$status}.");
+            ->with('success', "Akhbar berjaya {$status}.");
     }
 }

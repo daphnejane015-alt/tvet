@@ -69,6 +69,18 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
+        @if (session('error'))
+            <div class="mb-4 bg-red-50 border border-red-200 rounded-xl p-4 text-xs text-red-800">
+                <div class="flex items-start gap-2">
+                    <span class="text-lg">⚠️</span>
+                    <div>
+                        <strong class="font-bold block mb-1">Ralat</strong>
+                        {{ session('error') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('login') }}" novalidate id="loginForm">
             @csrf
 

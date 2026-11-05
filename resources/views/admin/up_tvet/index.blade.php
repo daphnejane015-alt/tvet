@@ -61,13 +61,26 @@
             <!-- Search & Filters -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                 <form method="GET" action="{{ route('admin.up-tvet.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
-                    <div class="sm:col-span-6 relative">
+                    <div class="sm:col-span-4 relative">
                         <input type="text" name="search" value="{{ $search }}"
-                               placeholder="Cari nama, e-mel, no. telefon atau IC..."
-                               class="w-full text-sm rounded-lg border-gray-300 focus:border-theme-blue focus:ring focus:ring-theme-blue/20 pl-9 py-2.5">
+                                placeholder="Cari nama, e-mel, no. telefon atau IC..."
+                                class="w-full text-sm rounded-lg border-gray-300 focus:border-theme-blue focus:ring focus:ring-theme-blue/20 pl-9 py-2.5">
                         <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <select name="course" class="w-full text-sm rounded-lg border-gray-300 focus:border-theme-blue focus:ring focus:ring-theme-blue/20 py-2.5">
+                            <option value="">Semua Kursus TVET</option>
+                            @if(isset($availableCourses))
+                                @foreach($availableCourses as $cName)
+                                    <option value="{{ $cName }}" {{ ($courseFilter ?? '') === $cName ? 'selected' : '' }}>
+                                        {{ $cName }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
 
                     <div class="sm:col-span-3">
@@ -76,15 +89,16 @@
                             <option value="completed" {{ $status === 'completed' ? 'selected' : '' }}>Telah Mengisi (Completed)</option>
                             <option value="verified" {{ $status === 'verified' ? 'selected' : '' }}>Disahkan (Verified)</option>
                             <option value="contacted" {{ $status === 'contacted' ? 'selected' : '' }}>Telah Dihubungi (Contacted)</option>
+                            <option value="rejected" {{ $status === 'rejected' ? 'selected' : '' }}>Ditolak (Rejected)</option>
                         </select>
                     </div>
 
-                    <div class="sm:col-span-3 flex gap-2">
+                    <div class="sm:col-span-2 flex gap-2">
                         <button type="submit" class="w-full bg-theme-blue hover:bg-theme-purple text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition shadow-sm">
                             Tapis
                         </button>
-                        @if($search || $status)
-                            <a href="{{ route('admin.up-tvet.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-2.5 rounded-lg transition flex items-center justify-center">
+                        @if($search || $status || !empty($courseFilter))
+                            <a href="{{ route('admin.up-tvet.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-2.5 rounded-lg transition flex items-center justify-center" title="Reset Tapisan">
                                 Reset
                             </a>
                         @endif
@@ -176,6 +190,10 @@
                                         @elseif($app->status === 'contacted')
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-800">
                                                 📞 Dihubungi
+                                            </span>
+                                        @elseif($app->status === 'rejected')
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800">
+                                                ✗ Ditolak
                                             </span>
                                         @else
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
@@ -387,16 +405,20 @@
                                         <span class="text-sm text-gray-800" x-text="selectedApp.invitation_officer_contact || 'Tidak dinyatakan'"></span>
                                     </div>
                                     <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-                                        <span class="text-xs text-gray-500 font-medium">Setuju Terma</span>
-                                        <span class="text-sm font-bold" :class="selectedApp.agreed_to_terms ? 'text-emerald-600' : 'text-red-600'" x-text="selectedApp.agreed_to_terms ? '✓ Ya' : '✗ Tidak'"></span>
-                                    </div>
-                                    <div class="flex justify-between items-center pb-2 border-b border-slate-200">
                                         <span class="text-xs text-gray-500 font-medium">Tarikh & Masa</span>
                                         <span class="text-sm text-gray-700" x-text="selectedApp.completed_at ? new Date(selectedApp.completed_at).toLocaleString('ms-MY') : '-'"></span>
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <span class="text-xs text-gray-500 font-medium">Status</span>
-                                        <span class="text-xs uppercase font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800" x-text="selectedApp.status"></span>
+                                        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full"
+                                              :class="{
+                                                  'bg-blue-100 text-blue-800': selectedApp.status === 'verified',
+                                                  'bg-purple-100 text-purple-800': selectedApp.status === 'contacted',
+                                                  'bg-rose-100 text-rose-800': selectedApp.status === 'rejected',
+                                                  'bg-emerald-100 text-emerald-800': selectedApp.status === 'completed' || !selectedApp.status
+                                              }"
+                                              x-text="selectedApp.status === 'verified' ? '★ Disahkan' : (selectedApp.status === 'contacted' ? '📞 Dihubungi' : (selectedApp.status === 'rejected' ? '✗ Ditolak' : '✓ Telah Mengisi'))">
+                                        </span>
                                     </div>
                                 </div>
 
@@ -468,6 +490,7 @@
                                                 <option value="completed" :selected="statusApp.status === 'completed'">Telah Mengisi (Completed)</option>
                                                 <option value="verified" :selected="statusApp.status === 'verified'">Disahkan (Verified)</option>
                                                 <option value="contacted" :selected="statusApp.status === 'contacted'">Telah Dihubungi (Contacted)</option>
+                                                <option value="rejected" :selected="statusApp.status === 'rejected'">Ditolak (Rejected)</option>
                                             </select>
                                         </div>
 

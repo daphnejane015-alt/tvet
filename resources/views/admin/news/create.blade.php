@@ -3,9 +3,9 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <h2 class="font-bold text-xl text-gray-800 leading-tight flex items-center gap-2">
-                    <span class="text-2xl">➕</span> Tambah Berita Baru
+                    <span class="text-2xl">➕</span> Tambah Akhbar Baru
                 </h2>
-                <p class="text-xs text-gray-500 mt-1">Tambah berita baharu untuk dipaparkan di laman utama.</p>
+                <p class="text-xs text-gray-500 mt-1">Tambah akhbar baharu untuk dipaparkan di laman utama.</p>
             </div>
             <a href="{{ route('admin.news.index') }}"
                class="inline-flex items-center gap-2 bg-gray-100 text-gray-700 font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 transition text-sm">
@@ -22,14 +22,14 @@
 
                     <!-- Title -->
                     <div class="mb-6">
-                        <label for="title" class="block text-sm font-bold text-gray-700 mb-2">Tajuk Berita *</label>
+                        <label for="title" class="block text-sm font-bold text-gray-700 mb-2">Tajuk Akhbar *</label>
                         <input type="text"
                                id="title"
                                name="title"
                                value="{{ old('title') }}"
                                required
                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:border-theme-blue focus:ring-theme-blue text-sm"
-                               placeholder="Masukkan tajuk berita">
+                               placeholder="Masukkan tajuk akhbar">
                         @error('title')
                             <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
@@ -43,7 +43,7 @@
                                   rows="4"
                                   required
                                   class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:border-theme-blue focus:ring-theme-blue text-sm"
-                                  placeholder="Masukkan penerangan berita">{{ old('description') }}</textarea>
+                                  placeholder="Masukkan penerangan akhbar">{{ old('description') }}</textarea>
                         @error('description')
                             <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
@@ -57,7 +57,7 @@
                                name="source"
                                value="{{ old('source') }}"
                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:border-theme-blue focus:ring-theme-blue text-sm"
-                               placeholder="Contoh: Kosmo!, Berita RTM">
+                               placeholder="Contoh: Kosmo!, Akhbar RTM">
                         @error('source')
                             <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
                         @enderror
@@ -79,7 +79,7 @@
 
                     <!-- URL -->
                     <div class="mb-6">
-                        <label for="url" class="block text-sm font-bold text-gray-700 mb-2">Pautan Berita</label>
+                        <label for="url" class="block text-sm font-bold text-gray-700 mb-2">Pautan Akhbar</label>
                         <input type="url"
                                id="url"
                                name="url"
@@ -93,7 +93,7 @@
 
                     <!-- News Date -->
                     <div class="mb-6">
-                        <label for="news_date" class="block text-sm font-bold text-gray-700 mb-2">Tarikh Berita</label>
+                        <label for="news_date" class="block text-sm font-bold text-gray-700 mb-2">Tarikh Akhbar</label>
                         <input type="date"
                                id="news_date"
                                name="news_date"
@@ -130,7 +130,7 @@
                                    value="1"
                                    checked
                                    class="w-5 h-5 text-theme-blue border-gray-300 rounded focus:ring-theme-blue">
-                            <span class="text-sm font-medium text-gray-700">Aktifkan berita ini</span>
+                            <span class="text-sm font-medium text-gray-700">Aktifkan akhbar ini</span>
                         </label>
                     </div>
 
@@ -138,7 +138,7 @@
                     <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
                         <button type="submit"
                                 class="bg-theme-blue hover:bg-theme-purple text-white font-semibold px-6 py-2.5 rounded-lg transition shadow-sm text-sm">
-                            Simpan Berita
+                            Simpan Akhbar
                         </button>
                         <a href="{{ route('admin.news.index') }}"
                            class="bg-gray-100 text-gray-700 font-semibold px-6 py-2.5 rounded-lg hover:bg-gray-200 transition text-sm">

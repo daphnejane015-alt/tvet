@@ -296,6 +296,7 @@
                                 <option value="completed" {{ $upTvetApplication->status === 'completed' ? 'selected' : '' }}>Telah Mengisi (Completed)</option>
                                 <option value="verified" {{ $upTvetApplication->status === 'verified' ? 'selected' : '' }}>Disahkan (Verified)</option>
                                 <option value="contacted" {{ $upTvetApplication->status === 'contacted' ? 'selected' : '' }}>Telah Dihubungi (Contacted)</option>
+                                <option value="rejected" {{ $upTvetApplication->status === 'rejected' ? 'selected' : '' }}>Ditolak (Rejected)</option>
                             </select>
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
                         </div>

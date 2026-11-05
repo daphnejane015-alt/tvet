@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Elak kesan glitch / kelipan sebelum Alpine.js siap initialize */
+[x-cloak] {
+    display: none !important;
+}
+
+html {
+    background-color: #FFF8E7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100vh;
+}

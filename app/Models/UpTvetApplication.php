@@ -9,7 +9,7 @@ class UpTvetApplication extends Model
 {
     use HasFactory;
 
-    protected $table = 'up_tvet_applications';
+    protected $table = 'acetvet_applications';
 
     protected $fillable = [
         'user_id',
@@ -38,13 +38,9 @@ class UpTvetApplication extends Model
         'total_income',
         'invitation_officer_name',
         'invitation_officer_contact',
-        'google_form_url',
         'status',
         'notes',
         'completed_at',
-        'agreed_to_terms',
-        'google_form_submitted_at',
-        'google_form_response_id',
     ];
 
     protected $casts = [

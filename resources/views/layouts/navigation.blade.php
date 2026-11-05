@@ -37,6 +37,12 @@
                         {{ __('Kursus') }}
                     </x-nav-link>
 
+                    @if(!auth()->check() || !auth()->user()->isAdmin())
+                        <x-nav-link :href="route('contact.us')" :active="request()->routeIs('contact.us')">
+                            {{ __('Contact Us') }}
+                        </x-nav-link>
+                    @endif
+
                     @auth
                         @if(auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
@@ -172,6 +178,12 @@
             <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.index')">
                 {{ __('Kursus') }}
             </x-responsive-nav-link>
+
+            @if(!auth()->check() || !auth()->user()->isAdmin())
+                <x-responsive-nav-link :href="route('contact.us')" :active="request()->routeIs('contact.us')">
+                    {{ __('Contact Us') }}
+                </x-responsive-nav-link>
+            @endif
 
             @auth
                 @if(auth()->user()->isAdmin())
